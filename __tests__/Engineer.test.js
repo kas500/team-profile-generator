@@ -1,8 +1,15 @@
 const Engineer = require('../lib/Engineer');
-
 const engineer = new Engineer("Anton","01","krasnikov@gmail.com","kas500")
+const {getType} = require('jest-get-type');
 
 describe("Engineer class test suite", () =>{
+    it('all input data should has String type', () => {
+        expect(getType(engineer.name)).toBe("string");
+        expect(getType(engineer.id)).toBe("string");
+        expect(getType(engineer.email)).toBe("string");
+        expect(getType(engineer.github)).toBe("string");
+    });
+    
     it('instance of the Engineer class should be created', () => {
         expect(engineer).toBeInstanceOf(Engineer);
     });

@@ -1,7 +1,14 @@
 const Employee = require('../lib/Employee');
 const employee = new Employee("Anton","01","krasnikovanton84@gmail.com");
+const {getType} = require('jest-get-type');
 
 describe("Employee class test suite", () =>{
+      it('all input data should has String type', () => {
+        expect(getType(employee.name)).toBe("string");
+        expect(getType(employee.id)).toBe("string");
+        expect(getType(employee.email)).toBe("string");
+      });
+
       it('instance of the Employee class should be created', () => {
         expect(employee).toBeInstanceOf(Employee);
       });
