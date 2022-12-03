@@ -1,5 +1,6 @@
 const Employee = require('../lib/Employee');
 const employee = new Employee("Anton","01","krasnikovanton84@gmail.com");
+
 describe("Employee class test suite", () =>{
       it('instance of the Employee class should be created', () => {
         expect(employee).toBeInstanceOf(Employee);
