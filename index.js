@@ -1,21 +1,36 @@
+const {indexPath} = require('./src/Helper');
 const inquirer = require('inquirer');
 const fs = require("fs");
 const {questions} = require('./src/Helper');
-const {htmlSkeleton1} = require('./src/Helper');
+let {htmlSkeleton1} = require('./src/Helper');
 const {htmlSkeleton2} = require('./src/Helper');
+const {cardTemplate} = require('./src/Helper');
 const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
 const Engineer = require('./lib/Engineer');
 
 let employees = [];
 
-function createCards(employees) {
-    
+async function generateHTML(employees) {
+    console.log(employees.length);
+    employees.forEach(employee => {
+        htmlSkeleton1 = htmlSkeleton1 + (cardTemplate(employee.getRole(), employee.getName(), employee.getId(), employee.getEmail(), 
+                                        employee.getRole()==="Manager"?
+                                        employee.getOfficeNumber():
+                                        employee.getRole()==="Engineer"?
+                                        employee.getGithub():employee.getSchool()));
+    });
+    return htmlSkeleton1 + htmlSkeleton2;
 }
+
+const createMainPage = (htmlSourceCode) =>
+fs.writeFile(indexPath, htmlSourceCode, (err) =>
+        err ? console.error(err) : console.log('Success!')
+    );
 
 function addToEmployeesArray(role, name, id, email, additionalField) {
     switch (role) {
-        case "manager":
+        case "Manager":
             employees.unshift(new Manager(name,id,email,additionalField));
             break;
         case "Engineer":
@@ -30,6 +45,7 @@ function addToEmployeesArray(role, name, id, email, additionalField) {
 }
 
 async function createEmployee(role) {
+
     let additionalQuestionIndex = 3;
     if(role==="Engineer"){
         additionalQuestionIndex = 4;
@@ -74,16 +90,16 @@ async function createEmployee(role) {
 
     ).then(async (answers)=>{
         if (answers.option !=="Finish building my team") {
-            await createEmployee(answers.option);
+             await createEmployee(answers.option);   
         } 
-        addToEmployeesArray(role, answers.employeeName, answers.employeeId, answers.employeeEmail, answers.additionaField);  
+        addToEmployeesArray(role, answers.employeeName, answers.employeeId, answers.employeeEmail, answers.additionaField); 
     });
 }
 
 
 async function init() {
     await createEmployee();
-    createCards(employees);
+    createMainPage(await generateHTML(employees));
 }
 
 init();
