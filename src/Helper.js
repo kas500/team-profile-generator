@@ -59,7 +59,7 @@ const cardTemplate = (role, employeeName, id, email, additionalInfo) =>{
             break;
     }
 
-return `<div class="card shadow-lg p-3 mb-5 bg-white rounded"" style="max-width: 12rem;">
+return `<div class="card shadow-lg p-3 mb-5 bg-white rounded" style="width: 10rem;">
 <img src="${iconSrc}" class="card-img-top" alt="${role}">
 <div class="card-body">
   <h5 class="card-title text-center">${role}</h5>
