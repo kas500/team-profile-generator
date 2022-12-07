@@ -1,3 +1,4 @@
+//link required modules
 const {indexPath} = require('./src/Helper');
 const inquirer = require('inquirer');
 const fs = require("fs");
@@ -9,8 +10,10 @@ const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
 const Engineer = require('./lib/Engineer');
 
+//created empty array to cllect employees classes
 let employees = [];
 
+// create HTML code gor the main page
 async function generateHTML(employees) {
     console.log(employees.length);
     employees.forEach(employee => {
@@ -23,6 +26,7 @@ async function generateHTML(employees) {
     return htmlSkeleton1 + htmlSkeleton2;
 }
 
+//function to write a HHTML file
 const createMainPage = (htmlSourceCode) =>
 fs.writeFile(indexPath, htmlSourceCode, (err) =>
         err ? console.error(err) : console.log('Success!')
@@ -44,6 +48,7 @@ function addToEmployeesArray(role, name, id, email, additionalField) {
     }
 }
 
+// create an instance of employee and add to the array
 async function createEmployee(role) {
 
     let additionalQuestionIndex = 3;
@@ -96,7 +101,7 @@ async function createEmployee(role) {
     });
 }
 
-
+//init
 async function init() {
     await createEmployee();
     createMainPage(await generateHTML(employees));
