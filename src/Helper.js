@@ -1,5 +1,7 @@
+//index.html file path
 const indexPath = "./dist/index.html";
 
+//questions for inquirer prompt
 const questions = (role) => [
     `Enter the ${role}'s name:`,
     `Enter the ${role}'s employee ID:`,
@@ -9,6 +11,7 @@ const questions = (role) => [
     `Enter the ${role}'s school name:`,
 ];
 
+//first part of html template (top)
 const htmlSkeleton1 = 
 `<!DOCTYPE html>
 <html lang="en">
@@ -28,13 +31,15 @@ const htmlSkeleton1 =
 </div>
 <div class="card-deck m-2 d-flex justify-content-around">
 `;
-    
+
+//second part of html template (bottom)
 const htmlSkeleton2 = 
 `
 </div>
 </body>
 </html>`
 
+//helper to create HTML card for an employee
 const cardTemplate = (role, employeeName, id, email, additionalInfo) =>{
     let additionalField = "";
     let iconSrc = "";
